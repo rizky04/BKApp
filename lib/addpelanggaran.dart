@@ -7,13 +7,10 @@ class AddDataPelanggaran extends StatefulWidget {
   _AddDataPelanggaranState createState() => _AddDataPelanggaranState();
 }
 
-
 class _AddDataPelanggaranState extends State<AddDataPelanggaran> {
-  TextEditingController controller
+  TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: child,
-    );
+    return Container();
   }
 }
