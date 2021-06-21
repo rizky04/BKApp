@@ -6,7 +6,7 @@ import 'package:appbk/hal_kelas.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 // ignore: unused_import
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
 File _image;
 
@@ -102,7 +102,7 @@ class _AddDataState extends State<AddData> {
 
   //http://sibk.amindev.online/api/getdataKelamin.php
   // ignore: deprecated_member_use
-
+  var spasi = new Padding(padding: new EdgeInsets.all(10));
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -115,108 +115,213 @@ class _AddDataState extends State<AddData> {
           children: <Widget>[
             new Column(
               children: <Widget>[
+                new Padding(padding: new EdgeInsets.all(10)),
                 new TextField(
                   controller: controllerNomorInduk,
                   decoration: new InputDecoration(
-                      hintText: "Nomor Induk", labelText: "Nomor Induk"),
+                      hintText: "Nomor Induk",
+                      labelText: "Nomor Induk",
+                      border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(20.0))),
                 ),
+                spasi,
                 new TextField(
                   controller: controllerNamaSiswa,
                   decoration: new InputDecoration(
-                      hintText: "Nama Siswa", labelText: "Nama Siswa"),
+                      hintText: "Nama Siswa",
+                      labelText: "Nama Siswa",
+                      border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(20.0))),
                 ),
-
+                spasi,
                 Center(
-                  child: DropdownButtonFormField(
-                    value: selectedKelamin,
-                    hint: Text("select Data Kelamin"),
-                    items: data.map(
-                      (list) {
-                        return DropdownMenuItem(
-                          child: Text(list['jenis_kelamin']),
-                          value: list['jenis_kelamin'],
-                        );
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      // color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: Border.all(
+                        style: BorderStyle.solid,
+                        width: 1.80,
+                      ),
+                    ),
+                    child: DropdownButtonFormField(
+                      value: selectedKelamin,
+                      hint: Text("select Data Kelamin"),
+                      items: data.map(
+                        (list) {
+                          return DropdownMenuItem(
+                            child: Text(list['jenis_kelamin']),
+                            value: list['jenis_kelamin'],
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedKelamin = value;
+                        });
                       },
-                    ).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedKelamin = value;
-                      });
-                    },
+                    ),
                   ),
                 ),
+                spasi,
                 Center(
-                  child: DropdownButtonFormField(
-                    value: selectedAgama,
-                    hint: Text("select Data Agama"),
-                    items: dataAgama.map(
-                      (list1) {
-                        return DropdownMenuItem(
-                          child: Text(list1['agama']),
-                          value: list1['id_agama'],
-                        );
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1.80,
+                        )),
+                    child: DropdownButtonFormField(
+                      value: selectedAgama,
+                      hint: Text("select Data Agama"),
+                      items: dataAgama.map(
+                        (list1) {
+                          return DropdownMenuItem(
+                            child: Text(list1['agama']),
+                            value: list1['id_agama'],
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedAgama = value;
+                        });
                       },
-                    ).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedAgama = value;
-                      });
-                    },
+                    ),
                   ),
                 ),
-
+                spasi,
                 Center(
-                  child: DropdownButtonFormField(
-                    value: selectedKelas,
-                    hint: Text("select Data Kelas"),
-                    items: dataKelas.map(
-                      (list2) {
-                        return DropdownMenuItem(
-                          child: Text(list2['kelas']),
-                          value: list2['id_kelas'],
-                        );
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1.80,
+                        )),
+                    child: DropdownButtonFormField(
+                      value: selectedKelas,
+                      hint: Text("select Data Kelas"),
+                      items: dataKelas.map(
+                        (list2) {
+                          return DropdownMenuItem(
+                            child: Text(list2['kelas']),
+                            value: list2['id_kelas'],
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedKelas = value;
+                        });
                       },
-                    ).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedKelas = value;
-                      });
-                    },
+                    ),
                   ),
                 ),
-                new TextField(
-                  controller: controllerWaliMurid,
-                  decoration: new InputDecoration(
-                      hintText: "wali murid", labelText: "wali murid"),
-                ),
-                new TextField(
-                  controller: controllerNoHp,
-                  decoration: new InputDecoration(
-                      hintText: "no hp", labelText: "no hp"),
-                ),
-                new TextField(
-                  controller: controllerAlamat,
-                  decoration: new InputDecoration(
-                      hintText: "alamat", labelText: "alamat"),
-                ),
+                spasi,
                 Center(
-                  child: _image == null
-                      ? new Text("No image selected")
-                      : new Image.file(_image),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1.80,
+                        )),
+                    child: new TextField(
+                      controller: controllerWaliMurid,
+                      decoration: new InputDecoration(
+                          hintText: "wali murid", labelText: "wali murid"),
+                    ),
+                  ),
                 ),
+                spasi,
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1.80,
+                        )),
+                    child: new TextField(
+                      controller: controllerNoHp,
+                      decoration: new InputDecoration(
+                          hintText: "no hp", labelText: "no hp"),
+                    ),
+                  ),
+                ),
+                spasi,
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(
+                          style: BorderStyle.solid,
+                          width: 1.80,
+                        )),
+                    child: new TextField(
+                      controller: controllerAlamat,
+                      decoration: new InputDecoration(
+                          hintText: "alamat", labelText: "alamat"),
+                    ),
+                  ),
+                ),
+                spasi,
+                // Center(
+                //   child: _image == null
+                //       ? new Text("No image selected")
+                //       : new Image.file(_image),
+                // ),
+                // spasi,
 
-                new Padding(
-                  padding: const EdgeInsets.all(10.0),
-                ),
-                // ignore: deprecated_member_use
-                new RaisedButton(
-                  child: new Text("ADD DATA"),
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    AddData();
-                    Navigator.pop(context);
-                  },
+                Container(
+                  // height: 50.0,
+                  // ignore: deprecated_member_use
+                  child: RaisedButton(
+                    onPressed: () {
+                      AddData();
+                      Navigator.pop(context);
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80.0)),
+                    padding: EdgeInsets.all(0.0),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xff374ABE), Color(0xff64B6FF)],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                          borderRadius: BorderRadius.circular(30.0)),
+                      child: Container(
+                        constraints:
+                            BoxConstraints(maxWidth: 400.0, minHeight: 50.0),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Tambah Data",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
                 )
+                // ignore: deprecated_member_use
+                // new RaisedButton(
+                //   child: new Text("ADD DATA"),
+                //   color: Colors.blueAccent,
+                //   onPressed: () {
+                //     AddData();
+                //     Navigator.pop(context);
+                //   },
+                // )
               ],
             ),
           ],
