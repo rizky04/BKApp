@@ -1,8 +1,14 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart'
     show
         AppBar,
         BuildContext,
+        Center,
         Colors,
+        Column,
+        Container,
+        ElevatedButton,
         Icon,
         Icons,
         Material,
@@ -38,72 +44,78 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  TabController controller;
+  int pageIndex = 0;
+  final Siswa.Siswa _siswa = Siswa.Siswa();
+  final Detail.Detail _detail = Detail.Detail();
+  final Laporan.Laporan _laporan = Laporan.Laporan();
+  final Kelas.Kelas _kelas = Kelas.Kelas();
 
-  @override
-  void initState() {
-    controller = new TabController(vsync: this, length: 4);
-    super.initState();
-  }
+  Widget _showPage = new Siswa.Siswa();
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  Widget _pageChooser(int page) {
+    switch (page) {
+      case 0:
+        return _siswa;
+        break;
+      case 1:
+        return _detail;
+        break;
+      case 2:
+        return _laporan;
+        break;
+      case 3:
+        return _kelas;
+        break;
+      default:
+        return new Container(
+          child: new Center(
+            child: new Text(
+              'halaman tidak di temukan',
+              style: new TextStyle(fontSize: 30),
+            ),
+          ),
+        );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("BK APP"),
-        bottom: new TabBar(
-          controller: controller,
-          tabs: <Widget>[
-            new Tab(
-              icon: new Icon(Icons.account_circle_outlined),
-            ),
-            new Tab(
-              icon: new Icon(Icons.app_registration),
-            ),
-            new Tab(
-              icon: new Icon(Icons.assignment_ind_outlined),
-            ),
-            new Tab(
-              icon: new Icon(Icons.corporate_fare_rounded),
-            ),
+    return Scaffold(
+        bottomNavigationBar: CurvedNavigationBar(
+          index: pageIndex,
+          height: 60.0,
+          items: <Widget>[
+            Icon(Icons.add, size: 30),
+            Icon(Icons.list, size: 30),
+            Icon(Icons.compare_arrows, size: 30),
+            Icon(Icons.call_split, size: 30),
           ],
+          color: Colors.white,
+          buttonBackgroundColor: Colors.white,
+          backgroundColor: Colors.blueAccent,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 600),
+          onTap: (int tappedIndex) {
+            setState(() {
+              _showPage = _pageChooser(tappedIndex);
+            });
+          },
+          letIndexChange: (index) => true,
         ),
-      ),
-      body: TabBarView(
-        controller: controller,
-        children: <Widget>[
-          new Siswa.Siswa(),
-          new Laporan.Laporan(),
-          new Detail.Detail(),
-          new Kelas.Kelas(),
-        ],
-      ),
-      bottomNavigationBar: new Material(
-        color: Colors.blue,
-        child: new TabBar(
-          controller: controller,
-          tabs: <Widget>[
-            new Tab(
-              icon: new Icon(Icons.account_circle_outlined),
-            ),
-            new Tab(
-              icon: new Icon(Icons.app_registration),
-            ),
-            new Tab(
-              icon: new Icon(Icons.assignment_ind_outlined),
-            ),
-            new Tab(
-              icon: new Icon(Icons.corporate_fare_rounded),
-            ),
-          ],
-        ),
-      ),
-    );
+        body: Container(
+          color: Colors.blueAccent,
+          child: Center(
+            child: _showPage,
+            // child: Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     Text(_page.toString(), textScaleFactor: 10.0),
+            //     ElevatedButton(
+            //       child: Text('Go To Page of index 1'),
+            //     )
+            //   ],
+            // ),
+          ),
+        ));
   }
 }

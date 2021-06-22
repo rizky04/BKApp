@@ -8,8 +8,6 @@ import 'package:http/http.dart' as http;
 // ignore: unused_import
 // import 'package:image_picker/image_picker.dart';
 
-File _image;
-
 class AddData extends StatefulWidget {
   @override
   _AddDataState createState() => _AddDataState();
