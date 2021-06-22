@@ -4,12 +4,14 @@ import 'dart:convert' show json, jsonDecode;
 import 'package:flutter/material.dart'
     show
         AppBar,
+        BoxDecoration,
         BuildContext,
         Center,
         CircularProgressIndicator,
+        Colors,
+        Container,
         FutureBuilder,
         ListView,
-        // ignore: unused_shown_name
         MaterialApp,
         Scaffold,
         State,
@@ -61,11 +63,14 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: list == null ? 0 : list.length,
-      itemBuilder: (context, i) {
-        return new Text(list[i]['nama_siswa']);
-      },
+    return Container(
+      decoration: new BoxDecoration(color: Colors.blueAccent),
+      child: new ListView.builder(
+        itemCount: list == null ? 0 : list.length,
+        itemBuilder: (context, i) {
+          return new Text(list[i]['nama_siswa']);
+        },
+      ),
     );
   }
 }

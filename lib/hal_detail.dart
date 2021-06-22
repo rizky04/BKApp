@@ -4,10 +4,12 @@ import 'dart:convert' show json, jsonDecode;
 import 'package:flutter/material.dart'
     show
         AppBar,
+        BoxDecoration,
         BuildContext,
         Card,
         Center,
         CircularProgressIndicator,
+        Colors,
         EdgeInsets,
         FloatingActionButton,
         FutureBuilder,
@@ -16,7 +18,6 @@ import 'package:flutter/material.dart'
         Icons,
         ListTile,
         ListView,
-        // ignore: unused_shown_name
         MaterialApp,
         MaterialPageRoute,
         Navigator,
@@ -85,6 +86,7 @@ class ItemList extends StatelessWidget {
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
         return new Container(
+          decoration: new BoxDecoration(color: Colors.blueAccent),
           padding: const EdgeInsets.all(10.0),
           child: new GestureDetector(
             onTap: () => Navigator.of(context).push(new MaterialPageRoute(
